@@ -1,0 +1,31 @@
+Enter number of processes and number of resources required 
+5 3
+Enter total number of required resources 5 for each process
+ 7 5 3
+3 2 2
+9 0 2
+2 2 2
+4 3 3
+Enter number of allocated resources 5 for each process
+0 1 0
+2 0 0
+3 0 2
+2 1 1
+ 0 0 2
+Enter number of available resources 
+3 3 2
+Resouces can be allocated to Process:2 and available resources are: 3 3 2 
+Resouces can be allocated to Process:4 and available resources are: 5 3 2 
+Resouces can be allocated to Process:5 and available resources are: 7 4 3 
+Resouces can be allocated to Process:1 and available resources are: 7 4 5 
+Resouces can be allocated to Process:3 and available resources are: 7 5 5 
+
+Need Matrix:
+7 4 3 
+1 2 2 
+6 0 0 
+0 1 1 
+4 3 1 
+
+System is in safe mode 
+<P2 P4 P5 P1 P3 >
