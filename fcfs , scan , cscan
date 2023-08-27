@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define NUM_REQUESTS 8
+
+void printSequence(int sequence[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%d ", sequence[i]);
+    }
+    printf("\n");
+}
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+void FCFS(int requests[], int head, int numRequests) {
+    printf("FCFS: ");
+    int sequence[NUM_REQUESTS];
+    for (int i = 0; i < numRequests; i++) {
+        sequence[i] = requests[i];
+    }
+    printSequence(sequence, numRequests);
+}
+
+void SCAN(int requests[], int head, int numRequests) {
+    printf("SCAN: ");
+    int sequence[NUM_REQUESTS];
+    qsort(requests, numRequests, sizeof(int), compare);
+
+    int current = head;
+    int left = 0;
+    int right = numRequests - 1;
+    int idx = 0;
+
+    while (idx < numRequests) {
+        if (requests[idx] >= current) {
+            left = idx;
+            break;
+        }
+        idx++;
+    }
+
+    for (int i = left; i >= 0; i--) {
+        sequence[idx++] = requests[i];
+    }
+
+    sequence[idx++] = 0; // Move to track 0
+
+    for (int i = left + 1; i < numRequests; i++) {
+        sequence[idx++] = requests[i];
+    }
+
+    printSequence(sequence, numRequests + 1);
+}
+
+void CSCAN(int requests[], int head, int numRequests) {
+    printf("C-SCAN: ");
+    int sequence[NUM_REQUESTS + 1];
+    qsort(requests, numRequests, sizeof(int), compare);
+
+    int current = head;
+    int left = 0;
+    int right = numRequests - 1;
+    int idx = 0;
+
+    while (idx < numRequests) {
+        if (requests[idx] >= current) {
+            left = idx;
+            break;
+        }
+        idx++;
+    }
+
+    for (int i = left; i < numRequests; i++) {
+        sequence[idx++] = requests[i];
+    }
+
+    sequence[idx++] = 199; // Move to the end of the disk
+
+    for (int i = 0; i < left; i++) {
+        sequence[idx++] = requests[i];
+    }
+
+    printSequence(sequence, numRequests + 1);
+}
+
+int main() {
+    int requests[NUM_REQUESTS] = {98, 183, 37, 122, 14, 124, 65, 67};
+    int head = 53;
+
+    FCFS(requests, head, NUM_REQUESTS);
+    SCAN(requests, head, NUM_REQUESTS);
+    CSCAN(requests, head, NUM_REQUESTS);
+
+    return 0;
+}
